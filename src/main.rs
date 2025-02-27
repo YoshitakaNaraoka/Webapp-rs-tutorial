@@ -1,8 +1,9 @@
-use crate::web::src::app::*;
+mod web_front;
+// トレイト境界エラー
+// use web_front::src::app::front;
 
 // Actix Web のエントリーポイントになる予定
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
-
+use actix_web::*;
 /*
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -17,12 +18,12 @@ async fn echo(req_body: String) -> impl Responder {
 async fn manual_hello() -> impl Responder {
     HttpResponse::Ok().body("Hey there!")
 }
-
+*/
 
 async fn front() -> impl Responder {
     HttpResponse::Ok().body("Yew app")
 }
-*/
+
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
