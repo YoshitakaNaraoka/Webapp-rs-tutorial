@@ -1,4 +1,12 @@
 use yew::prelude::*;
+use serde::{Serialize, Deserialize};
+use reqwest::get;
+
+#[derive(Serialize, Deserialize)]
+struct Message {
+    text: String,
+}
+
 
 #[function_component]
 fn App() -> Html {
