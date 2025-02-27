@@ -1,3 +1,4 @@
+/*
 use yew::prelude::*;
 use serde::{Serialize, Deserialize};
 use reqwest::get;
@@ -30,3 +31,4 @@ fn App() -> Html {
 fn main() {
     yew::Renderer::<App>::new().render();
 }
+*/
