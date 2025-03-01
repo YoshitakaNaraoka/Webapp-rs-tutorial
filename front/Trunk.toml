@@ -1,6 +1,6 @@
 [build]
-target = "./index.html"
+target = "index.html"
 dist = "dist"
 
 [watch]
-watch = ["src/", "web_front"]
+watch = []

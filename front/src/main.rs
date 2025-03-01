@@ -1,7 +1,7 @@
 use yew::prelude::*;
 use serde::{Deserialize, Serialize};
 use gloo_net::http::Request;
-use gloo_utils::spawn_local;
+use wasm_bindgen_futures::spawn_local;
 
 #[derive(Serialize, Deserialize, Clone)]
 struct Message {

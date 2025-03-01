@@ -12,5 +12,5 @@ wasm-logger = "0.2"
 log = "0.4.26"
 reqwest = "0.12.12"
 serde = { version = "1.0.218", features = ["derive"] }
+wasm-bindgen-futures = "0.4.50"
 gloo-net = "0.6.0"
-gloo-utils = "0.2.0"
