@@ -12,6 +12,14 @@ struct Message {
 fn app() -> Html {
     let message = use_state(|| String::new());
     let message_clone = message.clone();
+    let counter = use_state(|| 0);
+    let onclick = {
+        let counter = counter.clone();
+        move |_| {
+            let value = *counter + 1;
+            counter.set(value);
+        }
+    };
 
     use_effect(move || {
         spawn_local(async move {
@@ -31,6 +39,8 @@ fn app() -> Html {
         <div>
             <h1>{ "Message from Backend:" }</h1>
             <p>{ (*message).clone() }</p>
+            <button {onclick}>{ "+1" }</button>
+            <p>{ *counter }</p>
         </div>
     }
 }
