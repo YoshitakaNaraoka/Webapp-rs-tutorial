@@ -1,0 +1,12 @@
+[package]
+name = "front"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# "1"でも無理 -> features の postgres を消して無事にビルド
+# -> SeaORM では let db = "サーバURL"と書く仕様になった
+# sea-orm = { version = "1.1.6", features = ["runtime-tokio-rustls"] }
+yew = { version = "0.21", features = ["csr"] }
+wasm-logger = "0.2"
+log = "0.4.26"
