@@ -20,7 +20,10 @@ fn app() -> Html {
             counter.set(value);
         }
     };
-
+    let terminal = Callback::from(move |_| {
+        println!("Button clicked!");
+    });
+        
     use_effect(move || {
         spawn_local(async move {
             let fetched_message = Request::get("http://127.0.0.1:8080/api/message")
@@ -41,6 +44,7 @@ fn app() -> Html {
             <p>{ (*message).clone() }</p>
             <button {onclick}>{ "+1" }</button>
             <p>{ *counter }</p>
+            <button onclick={terminal}>{"Click me"}</button>
         </div>
     }
 }
