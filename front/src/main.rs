@@ -2,6 +2,8 @@ use yew::prelude::*;
 use serde::{Deserialize, Serialize};
 use gloo_net::http::Request;
 use wasm_bindgen_futures::spawn_local;
+use log::info;
+
 
 #[derive(Serialize, Deserialize, Clone)]
 struct Message {
@@ -21,7 +23,7 @@ fn app() -> Html {
         }
     };
     let terminal = Callback::from(move |_| {
-        println!("Button clicked!");
+        info!("Button clicked!");
     });
         
     use_effect(move || {
