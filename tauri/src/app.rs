@@ -57,9 +57,29 @@ pub fn app() -> Html {
             );
         })
     };
+/*
+    let mut background_color = use_state(|| String::new();
+    {
+        match background_color = .to_string();
+    }
+    let background_color = background_color.clone();
+    let background_color2 = background_color.clone();
+    use_effect_with(
+        background_color2,
+        move |_| {
+            spawn_local(async move {
+                if background_color.is_empty() {
+                    return;
+                }
 
+                let args = serde_wasm_bindgen::to_value(&)
+            }
+            )
+        }
+    ));
+*/
     html! {
-        <main class="container">
+        <main class={"container"}>
             <h1>{"Welcome to Tauri + Yew"}</h1>
 
             <div class="row">
@@ -77,6 +97,9 @@ pub fn app() -> Html {
                 <button type="submit">{"Greet"}</button>
             </form>
             <p>{ &*greet_msg }</p>
+            <div class="row" /*onsubmit={background_color}*/>
+                <button type="submit">{"background_mode"}</button>
+            </div>
         </main>
     }
 }

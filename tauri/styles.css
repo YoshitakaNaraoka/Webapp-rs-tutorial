@@ -17,6 +17,16 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.light_mode {
+  color: #0f0f0f;
+  background-color: #f6f6f6;
+}
+
+.dark_mode {
+  color: #f6f6f6;
+  background-color: #2f2f2f;
+}
+
 .container {
   margin: 0;
   padding-top: 10vh;
