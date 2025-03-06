@@ -1,4 +1,4 @@
 [toolchain]
 channel = "nightly"
-components = ["rustc", "cargo"]
+components = ["rustc", "cargo","rust-analyzer"]
 targets = []
