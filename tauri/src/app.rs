@@ -57,27 +57,10 @@ pub fn app() -> Html {
             );
         })
     };
-/*
-    let mut background_color = use_state(|| String::new();
-    {
-        match background_color = .to_string();
-    }
-    let background_color = background_color.clone();
-    let background_color2 = background_color.clone();
-    use_effect_with(
-        background_color2,
-        move |_| {
-            spawn_local(async move {
-                if background_color.is_empty() {
-                    return;
-                }
 
-                let args = serde_wasm_bindgen::to_value(&)
-            }
-            )
-        }
-    ));
-*/
+    let mut background_color = use_state(|&self| bool::false;
+    {
+
     html! {
         <main class={"container"}>
             <h1>{"Welcome to Tauri + Yew"}</h1>
