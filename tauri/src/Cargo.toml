@@ -1,0 +1,11 @@
+[package]
+name = "src-tauri"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "src-tauri"
+path = "main.rs"
+
+[dependencies]
+# 必要な依存関係を追加

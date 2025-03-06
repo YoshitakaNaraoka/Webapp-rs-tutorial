@@ -58,8 +58,7 @@ pub fn app() -> Html {
         })
     };
 
-    let mut background_color = use_state(|&self| bool::false;
-    {
+    
 
     html! {
         <main class={"container"}>
