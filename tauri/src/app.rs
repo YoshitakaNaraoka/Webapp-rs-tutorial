@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
+use crate::style::background;
 
 #[wasm_bindgen]
 extern "C" {
@@ -58,23 +59,15 @@ pub fn app() -> Html {
         })
     };
 
-    let color_mode = use_state(|| "light_mode".to_string());
-    let light_mode: UseStateHandle<std::string::String> = use_state(||  ":root.light_mode".to_string());
-    let dark_mode:UseStateHandle<std::string::String> = use_state(||  ":root.dark_mode".to_string());
-
+    let background = background();
 
     let toggle_light = {
-        let light_mode = light_mode.clone();
-        let dark_mode = dark_mode.clone();
-        let color_mode = color_mode.clone();
+
         Callback::from(move |_| {
-            if color_mode.is_empty() {
-                color_mode.set(light_mode.to_string());
-            } else if color_mode == light_mode {
-                color_mode.set(dark_mode.to_string());
-            } else if color_mode == dark_mode {
-                color_mode.set(light_mode.to_string());
-            } else {}
+            match background {
+                style::new(background) == style::new(background).light_mode => background.dark_mode,
+                style::new(background) == style::new(background).dark_mode => background.light_mode,
+            }
         })
     };
     
@@ -97,7 +90,7 @@ pub fn app() -> Html {
                 <button type="submit">{"Greet"}</button>
             </form>
             <p>{ &*greet_msg }</p>
-            <div class={(&color_mode).clone()} >
+            <div class={classes!(background)} >
                 <button type="submit" onclick={toggle_light}>{"background_mode"}</button>
             </div>
         </main>
