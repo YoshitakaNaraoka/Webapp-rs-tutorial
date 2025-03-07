@@ -3,7 +3,6 @@ use stylist::{Style, yew::styled_component};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
-use crate::style::{background, };
 
 #[wasm_bindgen]
 extern "C" {    

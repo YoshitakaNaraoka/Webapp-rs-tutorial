@@ -1,4 +1,4 @@
-use stylist::{style, yew::styled_component, Style};
+use stylist::style;
 use yew::prelude::*;
 
 
@@ -7,7 +7,6 @@ pub struct BackgroundComponentProps {
   pub background_state: bool,
 }
 #[function_component(BackgroundComponent)]
-#[styled_component()]
 pub fn button_bg_component(props: &BackgroundComponentProps) -> Html {
   let style = style!(
     r#"
@@ -37,16 +36,10 @@ pub fn button_bg_component(props: &BackgroundComponentProps) -> Html {
     }
     "#
     ).unwrap();
-    /* .with_variable("bg", if props.background_state { "black" } else { "white" })
-    .with_variable("text", if props.background_state { "white" } else { "black" });
 
-    html! {
-        <div class={style}>
-            {"これはスタイリングされたコンポーネントです。"}
-        </div> */
-        let class = if props.background_state { "dark_mode" } else { "light_mode" };
+  let class = if props.background_state { "dark_mode" } else { "light_mode" };
   html! {
-    <div class={classes!(style, class)}>
+    <div class={classes!(style, class.to_string())}>
     </div>
   }
-    }
+}
