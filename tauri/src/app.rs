@@ -3,7 +3,7 @@ use stylist::{Style, yew::styled_component};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
-use crate::style::{background, Style as BackgroundStyle};
+use crate::style::{background, };
 
 #[wasm_bindgen]
 extern "C" {    
@@ -15,8 +15,7 @@ extern "C" {
 struct GreetArgs<'a> {
     name: &'a str,
 }
-#[styled_component(App)]
-    
+
 #[function_component(App)]
 pub fn app() -> Html {
     let greet_input_ref = use_node_ref();
@@ -61,19 +60,11 @@ pub fn app() -> Html {
         })
     };
 
-    let background_state = use_state(|| BackgroundStyle::LightMode);
-    let current_background = background(&*background_state);
-    
+    let background_state = use_state(|| false);
+        
     let toggle_light = {
         let background_state = background_state.clone();
-        Callback::from(move |_: MouseEvent| {            
-            let new_background = match background_state {
-                Style::LightMode => Style::DarkMode,
-                Style::DarkMode => Style::LightMode,
-            };
-            background_state.set(new_background);
-            }
-        )
+        Callback::from(move |_|background_state.set(!*background_state))
     };
     
     html! {
@@ -95,7 +86,7 @@ pub fn app() -> Html {
                 <button type="submit">{"Greet"}</button>
             </form>
             <p>{ &*greet_msg }</p>
-            <div class={current_background} >
+            <div class={classes!(if *background_state { "light_mode" } else { "dark_mode" })} >
                 <button type="submit" onclick={toggle_light}>{"background_mode"}</button>
             </div>
         </main>
