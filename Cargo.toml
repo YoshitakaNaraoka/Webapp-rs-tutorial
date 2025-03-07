@@ -5,5 +5,6 @@ members = [
   "front",
   "tauri",
   "tauri/src",
+  "tauri/src-tauri",
 ]
 # nested = true
