@@ -57,23 +57,12 @@ pub fn app() -> Html {
             );
         })
     };
-/*
-    let color_mode = use_state(|| bool);
-    let light_mode = "light";
-    let dark_mode = "dark";
-    match  {
-        color_mode = true; => light_mode,
-        color_mode = false; => dark_mode,
-    }
-    let mut background_color = [light_mode, dark_mode];
-    let mut toggle_light != fn (!color_mode) {
-        color_mode.set(!color_mode);
-        
-    }
-*/
-    let color_mode = use_state(|| String::new());
-    let light_mode = ".light_mode";
-    let dark_mode = ".dark_mode";
+
+    let color_mode = use_state(|| "light_mode".to_string());
+    let light_mode: UseStateHandle<std::string::String> = use_state(||  ":root.light_mode".to_string());
+    let dark_mode:UseStateHandle<std::string::String> = use_state(||  ":root.dark_mode".to_string());
+
+
     let toggle_light = {
         let light_mode = light_mode.clone();
         let dark_mode = dark_mode.clone();
@@ -83,9 +72,9 @@ pub fn app() -> Html {
                 color_mode.set(light_mode.to_string());
             } else if color_mode == light_mode {
                 color_mode.set(dark_mode.to_string());
-            } else {
+            } else if color_mode == dark_mode {
                 color_mode.set(light_mode.to_string());
-            }
+            } else {}
         })
     };
     
@@ -108,8 +97,8 @@ pub fn app() -> Html {
                 <button type="submit">{"Greet"}</button>
             </form>
             <p>{ &*greet_msg }</p>
-            <div class="row" /*onsubmit={background_color}*/>
-                <button type="submit">{"background_mode"}</button>
+            <div class={(&color_mode).clone()} >
+                <button type="submit" onclick={toggle_light}>{"background_mode"}</button>
             </div>
         </main>
     }
