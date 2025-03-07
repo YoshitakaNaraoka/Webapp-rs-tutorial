@@ -1,11 +1,12 @@
 use serde::{Deserialize, Serialize};
+use stylist::{Style, yew::styled_component};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
-use crate::style::background;
+use crate::style::{background, Style as BackgroundStyle};
 
 #[wasm_bindgen]
-extern "C" {
+extern "C" {    
     #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"])]
     async fn invoke(cmd: &str, args: JsValue) -> JsValue;
 }
@@ -14,7 +15,8 @@ extern "C" {
 struct GreetArgs<'a> {
     name: &'a str,
 }
-
+#[styled_component(App)]
+    
 #[function_component(App)]
 pub fn app() -> Html {
     let greet_input_ref = use_node_ref();
@@ -59,16 +61,19 @@ pub fn app() -> Html {
         })
     };
 
-    let background = background();
-
+    let background_state = use_state(|| BackgroundStyle::LightMode);
+    let current_background = background(&*background_state);
+    
     let toggle_light = {
-
-        Callback::from(move |_| {
-            match background {
-                style::new(background) == style::new(background).light_mode => background.dark_mode,
-                style::new(background) == style::new(background).dark_mode => background.light_mode,
+        let background_state = background_state.clone();
+        Callback::from(move |_: MouseEvent| {            
+            let new_background = match background_state {
+                Style::LightMode => Style::DarkMode,
+                Style::DarkMode => Style::LightMode,
+            };
+            background_state.set(new_background);
             }
-        })
+        )
     };
     
     html! {
@@ -90,7 +95,7 @@ pub fn app() -> Html {
                 <button type="submit">{"Greet"}</button>
             </form>
             <p>{ &*greet_msg }</p>
-            <div class={classes!(background)} >
+            <div class={current_background} >
                 <button type="submit" onclick={toggle_light}>{"background_mode"}</button>
             </div>
         </main>
