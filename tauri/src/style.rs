@@ -33,16 +33,17 @@ pub fn button_bg_component(props: &BackgroundComponentProps) -> Html {
         }
         "#
     )).unwrap();
-    let class = if props.background_state {
-        "dark_mode"
+    let mut classes = Classes::new();
+    classes.push(stylesheet);
+    if props.background_state {
+        classes.push("dark_mode");
     } else {
-        "light_mode"
+        classes.push("light_mode");
     };
 
-    let mut classes = Classes::new();
-    classes.push(class);
+
 
     html! {
-        <div class={classes} {stylesheet}>{ "This is Background" }</div>
+        <div class={classes}>{ "This is Background" }</div>
     }
 }

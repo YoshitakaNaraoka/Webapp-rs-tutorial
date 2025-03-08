@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use stylist::{Style, yew::styled_component};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
@@ -77,9 +76,9 @@ pub fn app() -> Html {
                 <a href="https://yew.rs" target="_blank">
                     <img src="public/yew.png" class="logo yew" alt="Yew logo"/>
                 </a>
-                <p>{"Click on the Tauri and Yew logos to learn more."}</p>
+                
             </div>
-            
+            <p>{"Click on the Tauri and Yew logos to learn more."}</p>
 
             <form class="row" onsubmit={greet}>
                 <input id="greet-input" ref={greet_input_ref} placeholder="Enter a name..." />
