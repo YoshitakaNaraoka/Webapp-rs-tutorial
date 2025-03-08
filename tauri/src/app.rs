@@ -71,7 +71,7 @@ pub fn app() -> Html {
     let stylesheet = get_styles(*background_state); // style.rs からスタイルを取得
 
     let mut classes = Classes::new();
-    classes.push(stylesheet);
+    classes.push(stylesheet.clone());
     if *background_state {
         classes.push("dark_mode");
     } else {
@@ -79,7 +79,7 @@ pub fn app() -> Html {
     };
 
     html! {
-        <main class="container">
+        <main class={classes!("container", stylesheet)}>
             <h1>{"Welcome to Tauri + Yew"}</h1>
 
             <div class="row">
