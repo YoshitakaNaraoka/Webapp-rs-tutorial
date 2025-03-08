@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::spawn_local;
 
-use crate::style::get_styles; // styles.rs をモジュールとして読み込む
+use crate::style::{get_base_styles, get_light_mode_styles, get_dark_mode_styles}; // styles.rs から各スタイルを取得
 
 #[wasm_bindgen]
 extern "C" {
@@ -63,23 +63,35 @@ pub fn app() -> Html {
 
     let background_state = use_state(|| false);
 
-    let toggle_light = {
+    let toggle_light: Callback<MouseEvent> = {
         let background_state = background_state.clone();
-        Callback::from(move |_| background_state.set(!*background_state))
+        Callback::from(move |e: MouseEvent| {
+            e.prevent_default();
+            background_state.set(
+                !*background_state.cast::<web_sys::HtmlStyleElement>()
+            .unwrap().value,
+            );
+        }
+        )
     };
 
-    let stylesheet = get_styles(*background_state); // style.rs からスタイルを取得
+
+    let base_styles = get_base_styles();
+    let light_mode_styles = get_light_mode_styles();
+    let dark_mode_styles = get_dark_mode_styles();
 
     let mut classes = Classes::new();
-    classes.push(stylesheet.clone());
+    classes.push(base_styles.clone());
     if *background_state {
+        classes.push(dark_mode_styles);
         classes.push("dark_mode");
     } else {
+        classes.push(light_mode_styles);
         classes.push("light_mode");
     };
 
     html! {
-        <main class={classes!("container", stylesheet)}>
+        <main class={classes!("container")}>
             <h1>{"Welcome to Tauri + Yew"}</h1>
 
             <div class="row">
