@@ -25,6 +25,35 @@ pub fn get_base_styles() -> Style {
     .unwrap()
 }
 
+pub fn container_styles() -> Style {
+    Style::new(css!(
+        r#"
+        .container {
+            margin: 0;
+            padding-top: 10vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        "#
+    ))
+    .unwrap()
+}
+
+pub fn center_styles() -> Style {
+    Style::new(css!(
+        r#"
+        .center {
+            justify-content: center;
+            text-align: center;
+        }
+        "#
+    ))
+    .unwrap()
+}
+
+
 pub fn get_light_mode_styles() -> Style {
     Style::new(css!(
         r#"

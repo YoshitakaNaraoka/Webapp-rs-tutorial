@@ -3,8 +3,9 @@ use yew::prelude::*;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::spawn_local;
-
-use crate::style::{get_base_styles, get_light_mode_styles, get_dark_mode_styles}; // styles.rs から各スタイルを取得
+use stylist::yew::Global;
+use crate::style::{center_styles, container_styles, get_base_styles, get_dark_mode_styles, get_light_mode_styles, Style}; // styles.rs から各スタイルを取得
+use stylist::Classes;
 
 #[wasm_bindgen]
 extern "C" {
@@ -61,18 +62,16 @@ pub fn app() -> Html {
         })
     };
 
-    let background_state = use_state(|| false);
+    // モードの状態を保持する変数
+    let is_dark_mode = use_state(|| false);
 
     let toggle_light: Callback<MouseEvent> = {
-        let background_state = background_state.clone();
+        let is_dark_mode = is_dark_mode.clone();
         Callback::from(move |e: MouseEvent| {
             e.prevent_default();
-            background_state.set(
-                !*background_state.cast::<web_sys::HtmlStyleElement>()
-            .unwrap().value,
-            );
-        }
-        )
+            // モードの状態を反転
+            is_dark_mode.set(!*is_dark_mode);
+        })
     };
 
 
@@ -82,7 +81,7 @@ pub fn app() -> Html {
 
     let mut classes = Classes::new();
     classes.push(base_styles.clone());
-    if *background_state {
+    if *is_dark_mode {
         classes.push(dark_mode_styles);
         classes.push("dark_mode");
     } else {
@@ -91,29 +90,32 @@ pub fn app() -> Html {
     };
 
     html! {
-        <main class={classes!("container")}>
-            <h1>{"Welcome to Tauri + Yew"}</h1>
+        <>
+            <Global css={Style::from(get_base_styles())} />
+            <main class={classes!(container_styles())}>
+                <h1>{"Welcome to Tauri + Yew"}</h1>
 
-            <div class="row">
-                <a href="https://tauri.app" target="_blank">
-                    <img src="public/tauri.svg" class="logo tauri" alt="Tauri logo"/>
-                </a>
-                <a href="https://yew.rs" target="_blank">
-                    <img src="public/yew.png" class="logo yew" alt="Yew logo"/>
-                </a>
+                <div class="row">
+                    <a href="https://tauri.app" target="_blank">
+                        <img src="public/tauri.svg" class="logo tauri" alt="Tauri logo"/>
+                    </a>
+                    <a href="https://yew.rs" target="_blank">
+                        <img src="public/yew.png" class="logo yew" alt="Yew logo"/>
+                    </a>
 
-            </div>
-            <p>{"Click on the Tauri and Yew logos to learn more."}</p>
+                </div>
+                <p class={classes!(center_styles())}>{"Click on the Tauri and Yew logos to learn more."}</p>
 
-            <form class="row" onsubmit={greet}>
-                <input id="greet-input" ref={greet_input_ref} placeholder="Enter a name..." />
-                <button type="submit">{"Greet"}</button>
-            </form>
-            <p>{&*greet_msg}</p>
+                <form class="row" onsubmit={greet}>
+                    <input id="greet-input" ref={greet_input_ref} placeholder="Enter a name..." />
+                    <button type="submit">{"Greet"}</button>
+                </form>
+                <p>{&*greet_msg}</p>
 
-            <div>
-                <button type="submit" onclick={toggle_light}>{"Toggle Background Mode"}</button>
-            </div>
-        </main>
+                <div class={classes!(center_styles())}>
+                    <button type="submit" onclick={toggle_light}>{"Toggle Background Mode"}</button>
+                </div>
+            </main>
+        </>
     }
 }
