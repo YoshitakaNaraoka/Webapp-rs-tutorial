@@ -1,10 +1,13 @@
+use stylist::yew::styled_component;
+use yew::prelude::*;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::spawn_local;
-use yew::prelude::*;
+
+use crate::style::get_styles; // styles.rs をモジュールとして読み込む
 
 #[wasm_bindgen]
-extern "C" {    
+extern "C" {
     #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"])]
     async fn invoke(cmd: &str, args: JsValue) -> JsValue;
 }
@@ -14,7 +17,7 @@ struct GreetArgs<'a> {
     name: &'a str,
 }
 
-#[function_component(App)]
+#[styled_component(App)]
 pub fn app() -> Html {
     let greet_input_ref = use_node_ref();
 
@@ -59,14 +62,24 @@ pub fn app() -> Html {
     };
 
     let background_state = use_state(|| false);
-        
+
     let toggle_light = {
         let background_state = background_state.clone();
-        Callback::from(move |_|background_state.set(!*background_state))
+        Callback::from(move |_| background_state.set(!*background_state))
     };
-    
+
+    let stylesheet = get_styles(*background_state); // style.rs からスタイルを取得
+
+    let mut classes = Classes::new();
+    classes.push(stylesheet);
+    if *background_state {
+        classes.push("dark_mode");
+    } else {
+        classes.push("light_mode");
+    };
+
     html! {
-        <main class={"container"}>
+        <main class="container">
             <h1>{"Welcome to Tauri + Yew"}</h1>
 
             <div class="row">
@@ -76,7 +89,7 @@ pub fn app() -> Html {
                 <a href="https://yew.rs" target="_blank">
                     <img src="public/yew.png" class="logo yew" alt="Yew logo"/>
                 </a>
-                
+
             </div>
             <p>{"Click on the Tauri and Yew logos to learn more."}</p>
 
@@ -84,9 +97,10 @@ pub fn app() -> Html {
                 <input id="greet-input" ref={greet_input_ref} placeholder="Enter a name..." />
                 <button type="submit">{"Greet"}</button>
             </form>
-            <p>{ &*greet_msg }</p>
-            <div class={classes!(if *background_state { "light_mode" } else { "dark_mode" })} >
-                <button type="submit" onclick={toggle_light}>{"background_mode"}</button>
+            <p>{&*greet_msg}</p>
+
+            <div>
+                <button type="submit" onclick={toggle_light}>{"Toggle Background Mode"}</button>
             </div>
         </main>
     }

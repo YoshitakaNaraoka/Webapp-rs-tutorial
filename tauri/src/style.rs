@@ -1,13 +1,10 @@
-use stylist::{yew::styled_component, Style};
-use yew::prelude::*;
+use stylist::{css, Style};
 
-#[derive(Clone, PartialEq, Properties)]
-pub struct BackgroundComponentProps {
+pub struct BgState {
     pub background_state: bool,
 }
 
-#[styled_component(BackgroundComponent)]
-pub fn button_bg_component(props: &BackgroundComponentProps) -> Html {
+pub fn get_styles(_background_state: bool) -> Style {
     let stylesheet = Style::new(css!(
         r#"
         :host {
@@ -21,6 +18,7 @@ pub fn button_bg_component(props: &BackgroundComponentProps) -> Html {
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             -webkit-text-size-adjust: 100%;
+            text-align: center;
         }
         .light_mode {
             color: #0f0f0f;
@@ -32,18 +30,8 @@ pub fn button_bg_component(props: &BackgroundComponentProps) -> Html {
             background-color: #2f2f2f;
         }
         "#
-    )).unwrap();
-    let mut classes = Classes::new();
-    classes.push(stylesheet);
-    if props.background_state {
-        classes.push("dark_mode");
-    } else {
-        classes.push("light_mode");
-    };
+    ))
+    .unwrap();
 
-
-
-    html! {
-        <div class={classes}>{ "This is Background" }</div>
-    }
+    stylesheet
 }
