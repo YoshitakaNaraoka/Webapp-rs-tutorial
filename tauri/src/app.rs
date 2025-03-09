@@ -59,34 +59,37 @@ pub fn app() -> Html {
         })
     };
 
-    // モードの状態を保持する変数
-    let dark_mode = use_state(|| get_dark_mode_styles());
+    // モードの状態を保持する変数(初期値はライトモード)
+    let dark_mode = use_state(|| false);
 
     let toggle_light: Callback<MouseEvent> = {
         let dark_mode = dark_mode.clone();
         Callback::from(move |e: MouseEvent| {
             e.prevent_default();
-            // モードの状態を反転
-            dark_mode.set(get_dark_mode_styles());
+            // ライトモードに設定
+            dark_mode.set(false);
+        })
+    };
+    let toggle_dark: Callback<MouseEvent> = {
+        let dark_mode = dark_mode.clone();
+        Callback::from(move |e: MouseEvent| {
+            e.prevent_default();
+            dark_mode.set(true);
         })
     };
 
-/*
-    let base_styles = get_base_styles();
-    let light_mode_styles = get_light_mode_styles();
-    let dark_mode_styles = get_dark_mode_styles();
-
-    let mut classes = Classes::new();
-    classes.push(base_styles.clone());
-    if &is_dark_mode == dark_mode_styles {
-        classes.push(dark_mode_styles);
+    let mut main_classes = Classes::new();
+    main_classes.push(container_styles());
+    if *dark_mode {
+        main_classes.push(get_dark_mode_styles());
     } else {
-        classes.push(light_mode_styles);
+        main_classes.push(get_light_mode_styles());
     };
-*/
+    
+    
     html! {
         <>
-            <main class={classes!(container_styles())}>
+            <main class={main_classes}>
                 <h1>{"Welcome to Tauri + Yew"}</h1>
 
                 <div class={classes!(row_styles())}>
@@ -107,9 +110,10 @@ pub fn app() -> Html {
                 <p>{&*greet_msg}</p>
 
                 <div class={classes!(center_styles())}>
-                    <button type="submit" onclick={toggle_light}>{"Toggle Background Mode"}</button>
+                    <button type="submit" onclick={toggle_light}>{"Toggle Light Mode"}</button>
+                    <button type="submit" onclick={toggle_dark}>{"Toggle Dark Mode"}</button>
                 </div>
-                <p class={classes!(get_dark_mode_styles())}>{"Dark Mode"}</p>
+                <p>{if *dark_mode {"Dark Mode"} else {"Light Mode"}}</p>
             </main>
         </>
     }
