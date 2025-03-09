@@ -118,15 +118,35 @@ pub fn app() -> Html {
         </>
     }
 }
+// let mut brightness_mode:UseStateHandle<bool> = use_state(|| false);
 
-fn toggle_brightness(brightness_mode: UseStateHandle<bool>) -> Classes {
-    let mut brightness_mode = use_state(|| false);
-    brightness_mode.set(!*brightness_mode)
+#[function_component(App)]
+fn toggle_brightness(brightness_mode: UseStateHandle<bool>) {
+    // モードの状態を保持する変数(初期値はライトモード)
+    
+    let brightness_mode = dark_mode.clone();
+
+
+    let toggle_light: Callback<MouseEvent> = {
+        Callback::from(move |e: MouseEvent| {
+            e.prevent_default();
+            // ライトモードに設定
+            brightness_mode.set(false);
+        })
+    };
+    let toggle_dark: Callback<MouseEvent> = {
+        let brightness_mode = brightness_mode.clone();
+        Callback::from(move |e: MouseEvent| {
+            e.prevent_default();
+            brightness_mode.set(true);
+        })
+    };
+
     let mut main_classes = Classes::new();
-    if brightness_mode ==  {
+    main_classes.push(container_styles());
+    if *brightness_mode {
         main_classes.push(get_dark_mode_styles());
     } else {
         main_classes.push(get_light_mode_styles());
     };
-    
 }
