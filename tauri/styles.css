@@ -1,40 +1,6 @@
 .logo.yew:hover {
   filter: drop-shadow(0 0 2em #20a88a);
 }
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-
-  color: #0f0f0f;
-  background-color: #f6f6f6;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
-}
-
-:root.light_mode {
-  color: #0f0f0f;
-  background-color: #f6f6f6;
-}
-
-:root.dark_mode {
-  color: #f6f6f6;
-  background-color: #2f2f2f;
-}
-
-.container {
-  margin: 0;
-  padding-top: 10vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
 
 .logo {
   height: 6em;
@@ -47,10 +13,6 @@
   filter: drop-shadow(0 0 2em #24c8db);
 }
 
-.row {
-  display: flex;
-  justify-content: center;
-}
 
 a {
   font-weight: 500;
@@ -60,10 +22,6 @@ a {
 
 a:hover {
   color: #535bf2;
-}
-
-h1 {
-  text-align: center;
 }
 
 input,
@@ -78,6 +36,7 @@ button {
   background-color: #ffffff;
   transition: border-color 0.25s;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 
 button {
@@ -92,10 +51,7 @@ button:active {
   background-color: #e8e8e8;
 }
 
-input,
-button {
-  outline: none;
-}
+
 
 #greet-input {
   margin-right: 5px;
