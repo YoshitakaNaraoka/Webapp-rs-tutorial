@@ -60,32 +60,30 @@ pub fn app() -> Html {
     };
 
     // モードの状態を保持する変数
-    let is_dark_mode = use_state(|| false);
+    let dark_mode = use_state(|| get_dark_mode_styles());
 
     let toggle_light: Callback<MouseEvent> = {
-        let is_dark_mode = is_dark_mode.clone();
+        let dark_mode = dark_mode.clone();
         Callback::from(move |e: MouseEvent| {
             e.prevent_default();
             // モードの状態を反転
-            is_dark_mode.set(!*is_dark_mode);
+            dark_mode.set(get_dark_mode_styles());
         })
     };
 
-
+/*
     let base_styles = get_base_styles();
     let light_mode_styles = get_light_mode_styles();
     let dark_mode_styles = get_dark_mode_styles();
 
     let mut classes = Classes::new();
     classes.push(base_styles.clone());
-    if *is_dark_mode {
+    if &is_dark_mode == dark_mode_styles {
         classes.push(dark_mode_styles);
-        classes.push("dark_mode");
     } else {
         classes.push(light_mode_styles);
-        classes.push("light_mode");
     };
-
+*/
     html! {
         <>
             <main class={classes!(container_styles())}>
