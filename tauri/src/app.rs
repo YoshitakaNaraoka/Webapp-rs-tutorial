@@ -3,9 +3,7 @@ use yew::prelude::*;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::spawn_local;
-use stylist::yew::Global;
-use crate::style::{center_styles, container_styles, get_base_styles, get_dark_mode_styles, get_light_mode_styles}; // styles.rs から各スタイルを取得
-
+use crate::style::*;
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"])]
@@ -90,11 +88,10 @@ pub fn app() -> Html {
 
     html! {
         <>
-            // <Global css={classes!(get_base_styles())} />
             <main class={classes!(container_styles())}>
                 <h1>{"Welcome to Tauri + Yew"}</h1>
 
-                <div class="row">
+                <div class={classes!(row_styles())}>
                     <a href="https://tauri.app" target="_blank">
                         <img src="public/tauri.svg" class="logo tauri" alt="Tauri logo"/>
                     </a>
@@ -114,6 +111,7 @@ pub fn app() -> Html {
                 <div class={classes!(center_styles())}>
                     <button type="submit" onclick={toggle_light}>{"Toggle Background Mode"}</button>
                 </div>
+                <p class={classes!(get_dark_mode_styles())}>{"Dark Mode"}</p>
             </main>
         </>
     }

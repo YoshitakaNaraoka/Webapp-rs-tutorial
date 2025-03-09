@@ -47,6 +47,15 @@ pub fn center_styles() -> Style {
     .unwrap()
 }
 
+pub fn row_styles() -> Style {
+    Style::new(css!(
+        r#"
+            display: flex;
+            justify-content: center;
+        "#
+    ))
+    .unwrap()
+}
 
 pub fn get_light_mode_styles() -> Style {
     Style::new(css!(
