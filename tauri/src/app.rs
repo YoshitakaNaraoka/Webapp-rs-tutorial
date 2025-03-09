@@ -4,8 +4,7 @@ use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::spawn_local;
 use stylist::yew::Global;
-use crate::style::{center_styles, container_styles, get_base_styles, get_dark_mode_styles, get_light_mode_styles, Style}; // styles.rs から各スタイルを取得
-use stylist::Classes;
+use crate::style::{center_styles, container_styles, get_base_styles, get_dark_mode_styles, get_light_mode_styles}; // styles.rs から各スタイルを取得
 
 #[wasm_bindgen]
 extern "C" {
@@ -91,7 +90,7 @@ pub fn app() -> Html {
 
     html! {
         <>
-            <Global css={Style::from(get_base_styles())} />
+            // <Global css={classes!(get_base_styles())} />
             <main class={classes!(container_styles())}>
                 <h1>{"Welcome to Tauri + Yew"}</h1>
 
