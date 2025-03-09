@@ -118,3 +118,15 @@ pub fn app() -> Html {
         </>
     }
 }
+
+fn toggle_brightness(brightness_mode: UseStateHandle<bool>) -> Classes {
+    let mut brightness_mode = use_state(|| false);
+    brightness_mode.set(!*brightness_mode)
+    let mut main_classes = Classes::new();
+    if brightness_mode ==  {
+        main_classes.push(get_dark_mode_styles());
+    } else {
+        main_classes.push(get_light_mode_styles());
+    };
+    
+}
