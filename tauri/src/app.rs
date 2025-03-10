@@ -88,33 +88,33 @@ pub fn app() -> Html {
     
     
     html! {
-        <>
+        <global class={classes!(base_styles())}>
             <main class={main_classes}>
                 <h1>{"Welcome to Tauri + Yew"}</h1>
 
                 <div class={classes!(row_styles())}>
-                    <a href="https://tauri.app" target="_blank">
-                        <img src="public/tauri.svg" class="logo tauri" alt="Tauri logo"/>
+                    <a class={classes!(a_tag())} href="https://tauri.app" target="_blank">
+                        <img src="public/tauri.svg" class={classes!(logo())} alt="Tauri logo"/>
                     </a>
-                    <a href="https://yew.rs" target="_blank">
-                        <img src="public/yew.png" class="logo yew" alt="Yew logo"/>
+                    <a class={classes!(a_tag())} href="https://yew.rs" target="_blank">
+                        <img src="public/yew.png" class={classes!(logo())} alt="Yew logo"/>
                     </a>
 
                 </div>
                 <p class={classes!(center_styles())}>{"Click on the Tauri and Yew logos to learn more."}</p>
 
-                <form class="row" onsubmit={greet}>
-                    <input id="greet-input" ref={greet_input_ref} placeholder="Enter a name..." />
-                    <button type="submit">{"Greet"}</button>
+                <form class={classes!(row_styles())} onsubmit={greet}>
+                    <input class={classes!(input_and_button())} id={classes!(greet_input())} ref={greet_input_ref} placeholder="Enter a name..." />
+                    <button class={classes!(input_and_button())} type="submit">{"Greet"}</button>
                 </form>
                 <p>{&*greet_msg}</p>
 
                 <div class={classes!(center_styles())}>
-                    <button type="submit" onclick={toggle_light}>{"Toggle Light Mode"}</button>
-                    <button type="submit" onclick={toggle_dark}>{"Toggle Dark Mode"}</button>
+                    <button class={classes!(input_and_button())} type="submit" onclick={toggle_light}>{"Toggle Light Mode"}</button>
+                    <button class={classes!(input_and_button())} type="submit" onclick={toggle_dark}>{"Toggle Dark Mode"}</button>
                 </div>
                 <p>{if *dark_mode {"Dark Mode"} else {"Light Mode"}}</p>
             </main>
-        </>
+        </global>
     }
 }
